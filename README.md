@@ -1,7 +1,7 @@
 
 ---
 
-### ✅ **Longer Description (for `README.md`)**
+
 
 > # DSA Interview Prep
 >
