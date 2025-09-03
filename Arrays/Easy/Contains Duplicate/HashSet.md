@@ -2,7 +2,7 @@ https://leetcode.com/problems/contains-duplicate/description/
 
 ---
 
-## **1. Algorithm (in simple English)**
+## **1. Algorithm **
 
 The code checks whether an integer array contains any duplicate values.
 
@@ -15,8 +15,6 @@ The code checks whether an integer array contains any duplicate values.
    * Otherwise, add the element to `seen`.
 3. If the loop finishes without finding any duplicate, return `false`.
 
-**Mnemonic:**
-👉 “Check → Found? → Yes → Return True → Else Add → Continue.”
 
 ---
 
