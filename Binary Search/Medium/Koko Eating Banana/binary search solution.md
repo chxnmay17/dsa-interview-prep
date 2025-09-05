@@ -2,7 +2,7 @@ https://leetcode.com/problems/koko-eating-bananas/
 
 ---
 
-## 1. **Algorithm (in simple English)**
+## 1. **Algorithm **
 
 This code solves the **"Koko Eating Bananas" problem** using **binary search**.
 The goal: find the minimum speed `k` at which Koko can eat all bananas in `h` hours.
