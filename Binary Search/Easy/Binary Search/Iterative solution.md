@@ -1,3 +1,4 @@
+https://leetcode.com/problems/binary-search/description/
 # 1. Algorithm 
 
 * This is an **iterative binary search** on a sorted integer array `nums`.
