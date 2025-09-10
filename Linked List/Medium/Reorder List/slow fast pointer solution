@@ -1,0 +1,143 @@
+https://leetcode.com/problems/reorder-list/
+---
+
+## 1. Algorithm 
+
+The goal is to **reorder a linked list** in the following way:
+If the list is `L0 → L1 → L2 … Ln-1 → Ln`, reorder it into:
+`L0 → Ln → L1 → Ln-1 → L2 → Ln-2 …`
+
+Steps:
+
+1. **Find the middle of the list**
+
+   * Use the **slow and fast pointer** technique: slow moves one step, fast moves two steps.
+   * When fast reaches the end, slow will be at the middle.
+
+2. **Reverse the second half of the list**
+
+   * Call the `reverse()` function on the node after the middle (`slow.next`).
+   * This produces a reversed second half.
+
+3. **Break the list into two halves**
+
+   * Set `slow.next = null` to terminate the first half.
+
+4. **Merge the two halves**
+
+   * Alternately attach one node from the first half, then one from the reversed second half.
+   * Continue until all nodes from the reversed half are merged in.
+
+---
+
+## 2. Code
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+   
+    public static ListNode reverse(ListNode list){
+        ListNode curr = list;
+        ListNode prev = null;
+        while(curr != null){
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    public void reorderList(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+       
+        // Step 1: Find middle
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // Step 2: Reverse second half
+        ListNode reversed = reverse(slow.next);
+        slow.next = null;  // Step 3: Break into two halves
+        
+        // Step 4: Merge
+        ListNode curr = head;
+        while(reversed != null){
+            ListNode next = curr.next;
+            ListNode next2 = reversed.next;
+
+            curr.next = reversed;
+            reversed.next = next;
+
+            curr = next;
+            reversed = next2;
+        }
+    }
+}
+```
+
+---
+
+## 3. Time Complexity
+
+* **Finding the middle** → `O(n/2)`
+* **Reversing the second half** → `O(n/2)`
+* **Merging two halves** → `O(n)`
+
+Overall: **O(n)** (linear time).
+✅ Efficient since each node is processed a constant number of times.
+
+---
+
+## 4. Space Complexity
+
+* Uses only a few pointers (`slow`, `fast`, `curr`, etc.).
+* No extra data structures.
+
+Overall: **O(1)** (constant space).
+
+---
+
+## 5. Assumptions / Constraints
+
+* Input is a **singly linked list**.
+* Head can be `null` or have only one node (the code implicitly handles this).
+* Works for both **even and odd length lists**.
+* List is assumed to fit in memory (not handling extremely large streamed lists).
+* Stability of ordering within each half is not relevant since the problem demands a strict new order.
+
+---
+
+## 6. Optimizations (if any)
+
+* The algorithm is already optimal: **O(n) time and O(1) space**.
+* Minor optimizations:
+
+  * Inline the `reverse()` method if needed for performance-critical systems (reduces function call overhead).
+  * Early exit if `head == null || head.next == null` to avoid unnecessary work.
+
+---
+
+## 7. Edge Cases
+
+1. **Empty list (`head = null`)** → The method does nothing.
+2. **Single node (`[1]`)** → No reordering needed, function safely exits.
+3. **Two nodes (`[1,2]`)** → Already reordered form, merging step handles it correctly.
+4. **Odd length list (`[1,2,3,4,5]`)** → Middle is `3`; reorder → `[1,5,2,4,3]`.
+5. **Even length list (`[1,2,3,4]`)** → Middle is `2`; reorder → `[1,4,2,3]`.
+6. **Very large list** → Still works in `O(n)` with no memory blowup.
+
+---
+
+
